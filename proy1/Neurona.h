@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<random>
+#include<algorithm>
 using namespace std;
 
 //Typedef para los ejemplos
@@ -36,27 +37,23 @@ void Perceptron::aprender(vector<ejemplo> ejemplos, float tasa){
       pesos[i] = distribution(generator);
    }
 
-   int solved = 0;;
-   float error;
+   int solved = 0;
+   float t_e;
    int it = 0;
    while(solved != ejemplos.size()){
-      for(int i=0;i<delta.size();++i){
-	 delta[i] = 0.0f;
-      }
-      error = 0.0f;
       solved = 0;
+      t_e = 0.0f;
       for(int i=0;i<ejemplos.size();++i){
 	 float o = resolver(ejemplos[i].first);
+	 float e = ejemplos[i].second - o;
 	 if(o == ejemplos[i].second) ++solved;
 	 for(int j=0;j<pesos.size();++j){
-	    delta[j] += tasa*(ejemplos[i].second - o)*ejemplos[i].first[j];
-	    error += (ejemplos[i].second - o) * (ejemplos[i].second - o);
+	    pesos[j] += tasa*e*ejemplos[i].first[j];
 	 }
+	 t_e += e*e;
       }
-      for(int i=0;i<pesos.size();++i){
-	 pesos[i] += delta[i];
-      }
-      cout << it++ << "   " << error/2.0f << endl;
+      t_e /= 2.0f;
+      cout << it++ << "   " << t_e << endl;
    }
 }
 
@@ -84,36 +81,24 @@ void Neurona::aprender(vector<ejemplo> ejemplos, float tasa){
    default_random_engine generator(rd());
    uniform_real_distribution<float> distribution(0.0f,1.0f);
 
-   vector<float> delta(pesos);
-
    for(int i=0;i<pesos.size();++i){
       pesos[i] = distribution(generator);
    }
 
-   int solved = 0;
-   float error,last_error;
-   error = 0.0f;
-   last_error = 1.0f;
+   float t_e = 5.0f;
    int it = 1;
-   while(error != last_error){
-      last_error = error;
-      error = 0.0f;
-      for(int i=0;i<delta.size();++i){
-	 delta[i] = 0.0f;
-      }
-      solved = 0;
+   while(abs(t_e) > 2.38f){
+      t_e = 0.0f;
       for(int i=0;i<ejemplos.size();++i){
 	 float o = resolver(ejemplos[i].first);
-	 if(o == ejemplos[i].second) ++solved;
+	 float e = (ejemplos[i].second - o);
 	 for(int j=0;j<pesos.size();++j){
-	    delta[j] += (tasa/it)*(ejemplos[i].second - o)*ejemplos[i].first[j];
-	    error += (ejemplos[i].second - o) * (ejemplos[i].second - o);
+	    pesos[j] += tasa*e*ejemplos[i].first[j];
 	 }
+	 t_e += e*e;
       }
-      for(int i=0;i<pesos.size();++i){
-	 pesos[i] += delta[i];
-      }
-      cout << it++ << "   " << error/2.0f << endl;
+      t_e /= 2.0f;
+      cout << it++ << "   " << t_e << endl;
    }
 }
 
