@@ -85,9 +85,9 @@ void Neurona::aprender(vector<ejemplo> ejemplos, float tasa){
       pesos[i] = distribution(generator);
    }
 
-   float t_e = 5.0f;
+   float t_e = 15.0f;
    int it = 1;
-   while(abs(t_e) > 2.38f){
+   while(abs(t_e) > 14.694f){
       t_e = 0.0f;
       for(int i=0;i<ejemplos.size();++i){
 	 float o = resolver(ejemplos[i].first);
