@@ -3,8 +3,8 @@
 int main(){
 
    //Inicializacion de la red
-   vector<float> pesos8;
-   vector<float> pesos3;
+   vector<double> pesos8;
+   vector<double> pesos3;
    capa capaInterna;
    capa capaOutput;
    vector<capa> capas;
@@ -17,8 +17,9 @@ int main(){
       capaInterna.push_back(new Sigmoidal(pesos8));
    }
    for(int i=0;i<8;++i){
-      capaOutput.push_back(new Sigmoidal(pesos3));
+      capaOutput.push_back(new Adaline(pesos3));
    }
+
    capas.push_back(capaInterna);
    capas.push_back(capaOutput);
 
@@ -26,91 +27,91 @@ int main(){
 
    //Inicializacion de los ejemplos
    ejemplo2 one;
-   one.first.push_back(1.0f);
-   one.first.push_back(0.0f);
-   one.first.push_back(0.0f);
-   one.first.push_back(0.0f);
-   one.first.push_back(0.0f);
-   one.first.push_back(0.0f);
-   one.first.push_back(0.0f);
-   one.first.push_back(0.0f);
+   one.first.push_back(1.0);
+   one.first.push_back(0.0);
+   one.first.push_back(0.0);
+   one.first.push_back(0.0);
+   one.first.push_back(0.0);
+   one.first.push_back(0.0);
+   one.first.push_back(0.0);
+   one.first.push_back(0.0);
    one.second = one.first;
 
    ejemplo2 two;
-   two.first.push_back(0.0f);
-   two.first.push_back(1.0f);
-   two.first.push_back(0.0f);
-   two.first.push_back(0.0f);
-   two.first.push_back(0.0f);
-   two.first.push_back(0.0f);
-   two.first.push_back(0.0f);
-   two.first.push_back(0.0f);
+   two.first.push_back(0.0);
+   two.first.push_back(1.0);
+   two.first.push_back(0.0);
+   two.first.push_back(0.0);
+   two.first.push_back(0.0);
+   two.first.push_back(0.0);
+   two.first.push_back(0.0);
+   two.first.push_back(0.0);
    two.second = two.first;
 
    ejemplo2 three;
-   three.first.push_back(0.0f);
-   three.first.push_back(0.0f);
-   three.first.push_back(1.0f);
-   three.first.push_back(0.0f);
-   three.first.push_back(0.0f);
-   three.first.push_back(0.0f);
-   three.first.push_back(0.0f);
-   three.first.push_back(0.0f);
+   three.first.push_back(0.0);
+   three.first.push_back(0.0);
+   three.first.push_back(1.0);
+   three.first.push_back(0.0);
+   three.first.push_back(0.0);
+   three.first.push_back(0.0);
+   three.first.push_back(0.0);
+   three.first.push_back(0.0);
    three.second = three.first;
 
    ejemplo2 four;
-   four.first.push_back(0.0f);
-   four.first.push_back(0.0f);
-   four.first.push_back(0.0f);
-   four.first.push_back(1.0f);
-   four.first.push_back(0.0f);
-   four.first.push_back(0.0f);
-   four.first.push_back(0.0f);
-   four.first.push_back(0.0f);
+   four.first.push_back(0.0);
+   four.first.push_back(0.0);
+   four.first.push_back(0.0);
+   four.first.push_back(1.0);
+   four.first.push_back(0.0);
+   four.first.push_back(0.0);
+   four.first.push_back(0.0);
+   four.first.push_back(0.0);
    four.second = four.first;
 
    ejemplo2 five;
-   five.first.push_back(0.0f);
-   five.first.push_back(0.0f);
-   five.first.push_back(0.0f);
-   five.first.push_back(0.0f);
-   five.first.push_back(1.0f);
-   five.first.push_back(0.0f);
-   five.first.push_back(0.0f);
-   five.first.push_back(0.0f);
+   five.first.push_back(0.0);
+   five.first.push_back(0.0);
+   five.first.push_back(0.0);
+   five.first.push_back(0.0);
+   five.first.push_back(1.0);
+   five.first.push_back(0.0);
+   five.first.push_back(0.0);
+   five.first.push_back(0.0);
    five.second = five.first;
 
    ejemplo2 six;
-   six.first.push_back(0.0f);
-   six.first.push_back(0.0f);
-   six.first.push_back(0.0f);
-   six.first.push_back(0.0f);
-   six.first.push_back(0.0f);
-   six.first.push_back(1.0f);
-   six.first.push_back(0.0f);
-   six.first.push_back(0.0f);
+   six.first.push_back(0.0);
+   six.first.push_back(0.0);
+   six.first.push_back(0.0);
+   six.first.push_back(0.0);
+   six.first.push_back(0.0);
+   six.first.push_back(1.0);
+   six.first.push_back(0.0);
+   six.first.push_back(0.0);
    six.second = six.first;
 
    ejemplo2 seven;
-   seven.first.push_back(0.0f);
-   seven.first.push_back(0.0f);
-   seven.first.push_back(0.0f);
-   seven.first.push_back(0.0f);
-   seven.first.push_back(0.0f);
-   seven.first.push_back(0.0f);
-   seven.first.push_back(1.0f);
-   seven.first.push_back(0.0f);
+   seven.first.push_back(0.0);
+   seven.first.push_back(0.0);
+   seven.first.push_back(0.0);
+   seven.first.push_back(0.0);
+   seven.first.push_back(0.0);
+   seven.first.push_back(0.0);
+   seven.first.push_back(1.0);
+   seven.first.push_back(0.0);
    seven.second = seven.first;
 
    ejemplo2 eight;
-   eight.first.push_back(0.0f);
-   eight.first.push_back(0.0f);
-   eight.first.push_back(0.0f);
-   eight.first.push_back(0.0f);
-   eight.first.push_back(0.0f);
-   eight.first.push_back(0.0f);
-   eight.first.push_back(0.0f);
-   eight.first.push_back(1.0f);  
+   eight.first.push_back(0.0);
+   eight.first.push_back(0.0);
+   eight.first.push_back(0.0);
+   eight.first.push_back(0.0);
+   eight.first.push_back(0.0);
+   eight.first.push_back(0.0);
+   eight.first.push_back(0.0);
+   eight.first.push_back(1.0);  
    eight.second = eight.first;
 
 
@@ -126,6 +127,12 @@ int main(){
 
    //aprendizaje
    red.aprender(ejemplos,0.1);
+
+   //Testing
+   salida s1 = red.resolver(two.first);
+   for(int i=0;i<s1[s1.size()-1].size();++i){
+      cout << s1[s1.size()-1][i] << endl;
+   }
 
    return 0;
 }
