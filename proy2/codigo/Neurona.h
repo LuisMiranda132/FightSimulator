@@ -125,7 +125,9 @@ double Sigmoidal::resolver(vector<double> input){
    for(int i=0;i<input.size();++i){
       output += pesos[i] * input[i];
    }
-   return 1.0/(1.0 + exp(-output));
+   double o = 1.0/(1.0 + exp(-output));
+   //cout << o << endl;
+   return o;
 }
 
 void Sigmoidal::aprender(vector<ejemplo> ejemplos, double tasa){
