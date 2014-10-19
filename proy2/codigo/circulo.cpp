@@ -73,25 +73,47 @@ int main(int argc, char *argv[]){
 
     //aqui el hace una prueba con los 10 ultimos elementos del conjunto
     //estos 10 no se usan para entrenar
-    
-    // for(int i=0;i<10;++i){
-    //     ejemplo2 in;
+
+    free(input);
+    free(target);
+
+    input = Utilities::crearMatriz(1,2);
+    target = Utilities::crearMatriz(1,1);
+
+    float correct =0;
+    int tot=0;
+            
+//    for(int i=0;i<500;++i){
+        // ejemplo2 in;
         
-    //     if(scanf("%lf %lf %i", &x, &y, &result)!=3){
-    //         cout<<"nope"<<endl;
-    //     }else{            
-           
-    //         in.first.push_back(1.0);
-    //         in.first.push_back(x);
-    //         in.first.push_back(y);
+//        if(scanf("%lf %lf %i", &x, &y, &result)!=3){
+//            cout<<"nope"<<endl;
+//        }else{            
+    while(scanf("%lf %lf %i", &x, &y, &result)==3){ 
+            // in.first.push_back(1.0);
+            // in.first.push_back(x);
+            // in.first.push_back(y);
 
-    //         in.second.push_back(result);
+            input[0][0] = x;
+            input[0][1] = y;
 
-    //         salida s1 = red.resolver(in.first);
+            double* temp = red.resolver(input[0]);
+                        
+//            in.second.push_back(result);
 
-    //         cout<<s1[s1.size()-1][0]<<" = "<<in.second[0]<<endl;
-    //     }
-    // }
+//            salida s1 = red.resolver(in.first);
+
+            (temp[0] < 0.5 ? -1 : 1) == result ? correct++ : correct;
+            
+//            cout << temp[0] << " : " << (temp[0] < 0.5 ? -1 : 1) << " = " << result << endl;
+            tot++;
+            
+//            cout<<s1[s1.size()-1][0]<<" = "<<in.second[0]<<endl;
+        }
+//    }
+
+    cout <<"\t" << correct/tot << endl;
+    
         
 }
 

@@ -82,9 +82,13 @@ RedNeural::RedNeural(int i, int h, int o){
 double* RedNeural::aprender(double** inputs, double** targets, double tasa, int numEjemplos){
    double t_e = 10.0;
    int it = 0;
+   
    int print = 50;
-
+   float t_eantes = 10;
+   float t_edespues = t_eantes-1;
+      
    while(abs(t_e) > 0.1){
+       t_eantes = t_e;
       t_e = 0.0;
       for(int i=0;i<numEjemplos;++i){
 	 t_e += aprenderSingle(inputs[i],targets[i],tasa);
@@ -92,10 +96,13 @@ double* RedNeural::aprender(double** inputs, double** targets, double tasa, int 
       t_e /= 2.0;
 //      cout << t_e << endl;
       ++it;
-
+      t_edespues = t_e;
+      
       if(print == 0){
-          cout <<it<<" "<< t_e << endl;
           print=50;
+          cout <<it<<" "<< t_e << endl;//<< " ( "<<t_eantes<<" , "<< t_edespues << " ) "<< endl;
+          /* if(t_edespues==t_eantes) */
+          /*     break; */
       }else{
           print--;
       }
