@@ -7,7 +7,11 @@ int main(int argc, char *argv[]){
     // un ejemplo de corrida es
     // cat ../input/datos_generados_n500.txt ../input/datos_generados_n10.txt | ./circulo.out 500 2
     
-    int n = atoi(argv[1]);
+    int n = atoi(argv[2]);
+    RedNeural red(2,n,1);
+
+    n = atoi(argv[1]);
+    
     double x,y;
     int result;
     // vector<ejemplo2> input, prueba;
@@ -42,7 +46,7 @@ int main(int argc, char *argv[]){
     }
     
     // vector<double> pesos2, pesosN;
-    n = atoi(argv[2]);
+    
     // capa capaInterna,capaOutput;
     // vector<capa> capas;
     
@@ -63,12 +67,11 @@ int main(int argc, char *argv[]){
 
     // RedNeural red(capas);
 
-    RedNeural red(2,n,1);
     
     // cout<<"done!"<<endl;
     // cout<<"Aprendiendo..."<< endl;
     //red.aprender(input,0.1);
-    red.aprender(input,target,0.1,500);
+    red.aprender(input,target,0.001,n);
     // cout<<"done!"<<endl;
 
     //aqui el hace una prueba con los 10 ultimos elementos del conjunto
