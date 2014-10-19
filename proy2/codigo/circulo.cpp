@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
     int result;
     vector<ejemplo2> input, prueba;
 
-    cout<<"Cargando los ejemplos...";
+    cout<<"Cargando los ejemplos..." << endl;
         
     for(int i=0;i<n;i++){
         ejemplo2 in;
@@ -34,15 +34,17 @@ int main(int argc, char *argv[]){
     capa capaInterna,capaOutput;
     vector<capa> capas;
     
-    for(int i=0;i<2;i++)
-        pesos2.push_back(0.0f);
+    pesos2.push_back(0.0);
+    for(int i=0;i<2;++i)
+        pesos2.push_back(0.0);
     
-    for(int i=0;i<n;i++){
-        pesosN.push_back(0.0f);
+    pesosN.push_back(0.0);
+    for(int i=0;i<n;++i){
+        pesosN.push_back(0.0);
         capaInterna.push_back(new Sigmoidal(pesos2));
     }
 
-    capaOutput.push_back(new Sigmoidal(pesosN));
+    capaOutput.push_back(new Adaline(pesosN));
 
     capas.push_back(capaInterna);
     capas.push_back(capaOutput);
@@ -50,20 +52,21 @@ int main(int argc, char *argv[]){
     RedNeural red(capas);
 
     cout<<"done!"<<endl;
-    cout<<"Aprendiendo...";
+    cout<<"Aprendiendo..."<< endl;
     red.aprender(input,0.1);
     cout<<"done!"<<endl;
 
     //aqui el hace una prueba con los 10 ultimos elementos del conjunto
     //estos 10 no se usan para entrenar
     
-    for(int i=0;i<10;i++){
+    for(int i=0;i<10;++i){
         ejemplo2 in;
         
         if(scanf("%lf %lf %i", &x, &y, &result)!=3){
             cout<<"nope"<<endl;
         }else{            
-            
+           
+	    in.first.push_back(1.0);
             in.first.push_back(x);
             in.first.push_back(y);
 

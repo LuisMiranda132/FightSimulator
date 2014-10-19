@@ -1,117 +1,168 @@
-#include "Neurona.h"
+#include "utilities.h"
 using namespace std;
-
-typedef vector<Neurona*> capa;
-typedef vector< vector<double> > salida;
-typedef pair<vector<double>, vector<double> > ejemplo2;
 
 class RedNeural{
    public:
-      vector<capa> capas;
-      RedNeural(vector<capa> c): capas(c) {};
-      void aprender(vector<ejemplo2>, double);
-      salida resolver(vector<double>);
-      double getSum(capa, vector<double>,int);
+      //Numeros en las capas
+      int input;
+      int hidden;
+      int output;
+
+      //Arreglos de valores de la capa input a la interna
+      double* inputs;
+      double** pesosIH;
+      double* sumasIH;
+      double* biasIH;
+      double* outputsIH;
+
+      //Arreglos de valores de la capa interna a la output
+      double** pesosHO;
+      double* sumasHO;
+      double* biasHO;
+      double* outputs;
+
+      //Trebles
+      double* trebleOutput;
+      double* trebleHidden;
+
+      //Metodos
+      RedNeural(int,int,int);
+      double aprenderSingle(double*,double*,double);
+      double* resolver(double*);
+      double* aprender(double**,double**,double,int);
+
+      static double sigmoidal(double x){
+	 if(x < -45.0) return 0.0;
+	 else if(x > 45.0) return 1.0;
+	 else return 1.0/(1.0 + exp(-x));
+      }
 };
 
-salida RedNeural::resolver(vector<double> input){
-   salida output;
-   vector<double> t1;
-   t1.push_back(1.0);
-   for(int i=0;i<capas[0].size();++i){
-      t1.push_back(capas[0][i]->resolver(input));
-      //cout << t1[i] << endl;
-   }
-   //cout << t1[capas[0].size()-1] << endl;
-   output.push_back(t1);
-
-   for(int i=1;i<capas.size();++i){
-      vector<double> temp;
-      for(int j=0;j<capas[i].size();++j){
-	 temp.push_back(capas[i][j]->resolver(output[i-1]));
-      }
-      output.push_back(temp);
-   }
-
-   return output;
-}
-
-void RedNeural::aprender(vector<ejemplo2> ejemplos, double tasa){
+RedNeural::RedNeural(int i, int h, int o){
    random_device rd;
    default_random_engine gen(rd());
    uniform_real_distribution<double> distribution(-1.0,1.0);
 
-   vector<double> treble_k;
-   salida treble_h;
+   input = i;
+   hidden = h;
+   output = o;
 
-   for(int i=0;i<capas.size();++i){
-      vector<double> t2;
-      for(int j=0;j<capas[i].size();++j){
-	 if(i == capas.size()-1) treble_k.push_back(0.0);
-	 else t2.push_back(0.0);
-	 for(int k=0;k<capas[i][j]->pesos.size();++k){
-	    capas[i][j]->pesos[k] = distribution(gen);
-	    //cout << capas[i][j]->pesos[k] << endl;
-	 }
+   inputs = new double[input];
+   pesosIH = Utilities::crearMatriz(input,hidden);
+   sumasIH = new double[hidden];
+   biasIH = new double[hidden];
+   outputsIH = new double[hidden];
+
+   pesosHO = Utilities::crearMatriz(hidden,output);
+   sumasHO = new double[output];
+   biasHO = new double[output];
+   outputs = new double[output];
+
+   trebleOutput = new double[output];
+   trebleHidden = new double[hidden];
+
+   for(int i=0;i<input;++i){
+      for(int j=0;j<hidden;++j){
+	 pesosIH[i][j] = distribution(gen);
       }
-      if(i != capas.size()-1) treble_h.push_back(t2);
    }
 
-   double t_e = 10.0;
-   for(int it=0;it < 5000;++it){
-      t_e = 0.0;
-      for(int i=0;i<ejemplos.size();++i){
-	 salida o = resolver(ejemplos[i].first);
-	 vector<double> t_k = ejemplos[i].second;
-	 //cout << "Ejemplo " << i+1 << endl;
-	 for(int j=0;j<capas[capas.size()-1].size();++j){
-	    double o_k = o[capas.size()-1][j];
-	    //cout << o_k << " vs " << t_k[j] << endl;
-	    treble_k[j] = o_k*(1-o_k)*(t_k[j]-o_k);
-	    t_e += (t_k[j]-o_k)*(t_k[j]-o_k);
-	    //cout << treble_k[j] << endl;
-	    //cout << t_e << endl;
-	 }
-	 for(int j=0;j<capas.size()-1;++j){
-	    for(int k=0;k<capas[j].size();++k){
-	       double o_h = o[j][k];
-	       double s = getSum(capas[j+1],treble_k,k);
-	       //cout << s << endl;
-	       treble_h[j][k] = o_h*(1-o_h)*s;
-	       //cout << treble_h[j][k] << endl;
-	    }
-	 }
-	 for(int j=0;j<capas.size();++j){
-	    for(int k=0;k<capas[j].size();++k){
-	       if(j == 0){
-		  for(int l=0;l<capas[j][k]->pesos.size();++l){
-		     capas[j][k]->pesos[l] =
-		     tasa*treble_h[j][k]*ejemplos[i].first[l];
-		  }
-	       }else if(j != capas.size()-1){
-		  for(int l=0;l<capas[j][k]->pesos.size();++l){
-		     capas[j][k]->pesos[l] = 
-		     tasa*treble_h[j][k]*o[j-1][l];
-		  }
-	       }else{
-		  for(int l=0;l<capas[j][k]->pesos.size();++l){
-		     capas[j][k]->pesos[l] = tasa*treble_k[k]*o[j-1][l];
-		  }
-	       }
-	    }
-	 }
+   for(int i=0;i<hidden;++i){
+      for(int j=0;j<output;++j){
+	 pesosHO[i][j] = distribution(gen);
       }
-      t_e /= 2.0;
-      //cout << t_e << endl;
+      biasIH[i] = distribution(gen);
    }
 
+   for(int i=0;i<output;++i){
+      biasHO[i] = distribution(gen);
+   }
 }
 
-double RedNeural::getSum(capa c, vector<double> t,int k){
-   double res = 0.0;
-
-   for(int i=0;i<c.size();++i){
-      res += (c[i]->pesos[k+1])*t[i];
+double* RedNeural::aprender(double** inputs, double** targets, double tasa, int numEjemplos){
+   double t_e = 10.0;
+   int it = 0;
+   while(abs(t_e) > 0.1){
+      t_e = 0.0;
+      for(int i=0;i<numEjemplos;++i){
+	 t_e += aprenderSingle(inputs[i],targets[i],tasa);
+      }
+      t_e /= 2.0;
+      cout << t_e << endl;
+      ++it;
    }
-   return res;
+   return outputs;
+}
+
+double RedNeural::aprenderSingle(double* in, double* t, double tasa){
+   double* o = resolver(in);
+   double t_e = 0.0;
+
+   //Calculando los errores de output
+   for(int i=0;i<output;++i){
+      double der = outputs[i] * (1-outputs[i]);
+      trebleOutput[i] = der * (t[i] - outputs[i]);
+      t_e += der*der;
+   }
+
+   //Calculando los errores de la capa interna
+   for(int i=0;i<hidden;++i){
+      double der = outputsIH[i] * (1-outputsIH[i]);
+      double temp = 0.0;
+      for(int j=0;j<output;++j){
+	 temp += trebleOutput[j] * pesosHO[i][j];
+      }
+      trebleHidden[i] = der * temp;
+   }
+
+   //Actualizar pesos de la capa interna
+   for(int i=0;i<input;++i){
+      for(int j=0;j<hidden;++j){
+	 double delta = tasa * trebleHidden[j] * in[i];
+	 pesosIH[i][j] += delta;
+      }
+   }
+
+   //Actualizar bias internos
+   for(int i=0;i<hidden;++i){
+      double delta = tasa * trebleHidden[i] * 1.0;
+      biasIH[i] += delta;
+   }
+
+   //Actualizar pesos de la capa output
+   for(int i=0;i<hidden;++i){
+      for(int j=0;j<output;++j){
+	 double delta = tasa * trebleOutput[j] * outputsIH[i];
+	 pesosHO[i][j] += delta;
+      }
+   }
+
+   //Actualizar bias de output
+   for(int i=0;i<output;++i){
+      double delta = tasa * trebleOutput[i] * 1.0;
+      biasHO[i] += delta;
+   }
+
+   return t_e;
+} 
+
+double* RedNeural::resolver(double* in){
+   for(int i=0;i<hidden;++i){
+      double temp = 0.0;
+      for(int j=0;j<input;++j){
+	 temp += in[j] * pesosIH[j][i];
+      }
+      temp += biasIH[i];
+      outputsIH[i] = sigmoidal(temp);
+   }
+   for(int i=0;i<output;++i){
+      double temp = 0.0;
+      for(int j=0;j<hidden;++j){
+	 temp += outputsIH[j] * pesosHO[j][i];
+      }
+      temp += biasHO[i];
+      outputs[i] = sigmoidal(temp);
+   }
+
+   return outputs;
 }
