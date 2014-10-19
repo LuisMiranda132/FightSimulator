@@ -67,11 +67,12 @@ int main(int argc, char *argv[]){
 
     // RedNeural red(capas);
 
-    
+    double tasa;
+    sscanf(argv[3],"%lf",&tasa);
     // cout<<"done!"<<endl;
     // cout<<"Aprendiendo..."<< endl;
     //red.aprender(input,0.1);
-    red.aprender(input,target,0.001,n);
+    red.aprender(input,target,tasa,n);
     // cout<<"done!"<<endl;
 
     //aqui el hace una prueba con los 10 ultimos elementos del conjunto
