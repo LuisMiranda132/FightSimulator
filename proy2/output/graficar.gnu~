@@ -1,0 +1,6 @@
+#! /usr/bin/gnuplot
+
+set key outside bottom
+plot "<awk '{if($3 == 1) print}' ./result1000/1000_9.ans.output" title "Fuera","<awk '{if($3 == -1) print}' ./result1000/1000_9.ans.output" title "Dentro", "./c.dat" with circles title "Circulo"
+
+pause -1 "Hit any key to continue"

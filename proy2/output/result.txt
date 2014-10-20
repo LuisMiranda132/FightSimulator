@@ -1,0 +1,144 @@
+result1000
+
+2
+0.753
+3
+Maximo de ciclos
+0.723
+4
+Maximo de ciclos
+0.749
+ 5
+Maximo de ciclos
+0.772
+ 6
+Maximo de ciclos
+0.824
+7
+Maximo de ciclos
+0.83
+8
+Maximo de ciclos
+0.842
+9
+Maximo de ciclos
+0.873
+10
+Maximo de ciclos
+0.871
+
+result1000g
+
+2
+Maximo de ciclos
+0.615
+3
+Maximo de ciclos
+0.704
+4
+Maximo de ciclos
+0.7
+5
+Maximo de ciclos
+0.721
+6
+Maximo de ciclos
+0.644
+7
+Maximo de ciclos
+0.705
+8
+Maximo de ciclos
+0.6
+9
+Maximo de ciclos
+0.639
+10
+Maximo de ciclos
+0.678
+
+result2000
+
+2
+Maximo de ciclos
+0.857
+3
+Maximo de ciclos
+0.716
+4
+Maximo de ciclos
+0.729
+5
+0.714
+6
+Maximo de ciclos
+0.702
+7
+Maximo de ciclos
+0.854
+8
+Maximo de ciclos
+0.835
+9
+Maximo de ciclos
+0.874
+10
+Maximo de ciclos
+0.87
+
+result500
+
+2
+0.858
+3
+Maximo de ciclos
+0.605
+4
+Maximo de ciclos
+0.757
+5
+Maximo de ciclos
+0.739
+6
+Maximo de ciclos
+0.839
+7
+0.744
+8
+Maximo de ciclos
+0.851
+9
+0.862
+10
+Maximo de ciclos
+0.861
+
+result500g
+
+2
+Maximo de ciclos
+0.658
+3
+Maximo de ciclos
+0.599
+4
+Maximo de ciclos
+0.54
+5
+Maximo de ciclos
+0.632
+ 6
+Maximo de ciclos
+0.709
+7
+Maximo de ciclos
+0.658
+8
+Maximo de ciclos
+0.68
+9
+Maximo de ciclos
+0.682
+10
+Maximo de ciclos
+0.671
