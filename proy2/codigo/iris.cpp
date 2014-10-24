@@ -4,6 +4,10 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
+   
+   //Corrida: ./iris.out <archivoEntrenamiento> <archivoTesting>
+   //<cantidadEntrenamiento> <cantidadTesting> <neuronasInternas>
+   //<Binario|Clase> <Tasa de aprendizaje>
 
    ifstream infile(argv[1]);
    ifstream datafile(argv[2]);
