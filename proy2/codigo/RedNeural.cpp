@@ -4,7 +4,7 @@ using namespace std;
 RedNeural::RedNeural(int i, int h, int o){
    random_device rd;
    default_random_engine gen(rd());
-   uniform_real_distribution<double> distribution(-1.0,1.0);
+   uniform_real_distribution<double> distribution(-0.5,0.5);
 
    input = i;
    hidden = h;
@@ -46,31 +46,33 @@ double* RedNeural::aprender(double** inputs, double** targets, double tasa, int 
    double t_e = 10.0;
    int it = 0;
    
-   int print = 50;
+   int print = 5;
    float t_eantes = 10;
    float t_edespues = t_eantes-1;
       
-   while(abs(t_e) > 0.1 and it < 200000){
-       //while(abs(t_e) > 0.1&&it<539630){
 
+   // para el caso del circulo usar 10000000 it
+   // para el caso del iris usar 200000 it
+   while(abs(t_e) > 0.1 and it < 200000){
+//   while(abs(t_e) > 0.1&&it<10000000){
+       
        t_eantes = t_e;
-      t_e = 0.0;
+       t_e = 0.0;
       for(int i=0;i<numEjemplos;++i){
 	 t_e += aprenderSingle(inputs[i],targets[i],tasa);
       }
       t_e /= 2.0;
       ++it;
-      //cout << it << " " <<  t_e << endl;
+
       t_edespues = t_e;
+
       
-      //if(print == 0){
-      //    print=50;
-      //    cout <<it<<" "<< t_e << endl;
-      // if(t_edespues==t_eantes)
-      //     break;
-      //}else{
-      //    print--;
-      //}*/
+      if(print == 0){
+         print=5;
+         cout <<it<<" "<< t_e << " " <<endl;
+      }else{
+         print--;
+      }
 
    }
    return outputs;

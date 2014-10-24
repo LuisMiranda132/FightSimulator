@@ -4,10 +4,10 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
-    // primero argumento es la cantidad de ejemplos para entrenar y
+    // el primero argumento es la cantidad de ejemplos para entrenar y
     // despues la cantidad de neuronas de la capa intermedio
     // un ejemplo de corrida es
-    // cat ../input/datos_generados_n500.txt ../input/datos_generados_n10.txt | ./circulo.out 500 2
+    // cat <datos para entrenar> <datos para probar> | ./circulo.out <# de datos para entrenar> <# de neuronas>
     
     int n = atoi(argv[2]);
     RedNeural red(2,n,1);
@@ -18,12 +18,14 @@ int main(int argc, char *argv[]){
     int result;
     double** input;
     double** target;
-
+    double welp;
+    
     input = Utilities::crearMatriz(n,2);
     target = Utilities::crearMatriz(n,1);
         
     for(int i=0;i<n;i++){
         
+//        if(scanf("%lf %lf %i %lf", &x, &y, &result, &welp)!=4){
         if(scanf("%lf %lf %i", &x, &y, &result)!=3){
             cout<<"nope"<<endl;
         }else{
@@ -52,11 +54,11 @@ int main(int argc, char *argv[]){
 
     float correct =0;
     int tot=0;
-            
+    
     ofstream salida;
     salida.open("output.output");
+    // while(scanf("%lf %lf %i %lf", &x, &y, &result,&welp)==4){ 
     while(scanf("%lf %lf %i", &x, &y, &result)==3){ 
-
             input[0][0] = x;
             input[0][1] = y;
 

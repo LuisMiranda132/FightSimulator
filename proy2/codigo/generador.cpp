@@ -18,19 +18,30 @@ int main(int argc, char *argv[])
     float result;
     int dentro = n/2;
     int fuera = n-dentro;
-       
+
+    // for(int x=0;x<21;x++){
+    //     for(int y=0;y<21;y++){
+    //         result = (x-10.0f)*(x-10.0f) + (y-10.0f)*(y-10.0f);    
+    //         if(result==49)
+    //             cout<<x<<" "<<y<<" "<< -1 <<" "<< result << endl;
+    //     }
+    // }
+    
     while(dentro+fuera!=0){
         x = distribution(generator);
         y = distribution(generator);
 
-        result = pow(x-10.0f,2.0f) + pow(y-10.0f,2.0f);
-
+        result = (x-10.0f)*(x-10.0f) + (y-10.0f)*(y-10.0f);
+        //cout<<result;
+                
         if(result > 49.0f && fuera){
             fuera--;
-            cout<<x<<" "<<y<<" "<< 1 << endl;
-        }else if(dentro){
+            //cout<<"\t"<<1<<endl;
+            cout<<x<<" "<<y<<" "<<  1 <<" "<<endl;//<< result << endl;
+        }else if(result <= 49.0f && dentro){
             dentro--;
-            cout<<x<<" "<<y<<" "<< -1 << endl;
+            //cout<<"\t"<<-1<<endl;
+            cout<<x<<" "<<y<<" "<< -1 <<" "<<endl;//<< result << endl;
         }
         
     }
