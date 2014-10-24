@@ -50,7 +50,7 @@ double* RedNeural::aprender(double** inputs, double** targets, double tasa, int 
    float t_eantes = 10;
    float t_edespues = t_eantes-1;
       
-   while(abs(t_e) > 0.1){
+   while(abs(t_e) > 0.1 and it < 200000){
        //while(abs(t_e) > 0.1&&it<539630){
 
        t_eantes = t_e;
@@ -60,7 +60,7 @@ double* RedNeural::aprender(double** inputs, double** targets, double tasa, int 
       }
       t_e /= 2.0;
       ++it;
-      cout << it << " " <<  t_e << endl;
+      //cout << it << " " <<  t_e << endl;
       t_edespues = t_e;
       
       //if(print == 0){

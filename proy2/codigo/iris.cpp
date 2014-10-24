@@ -84,10 +84,12 @@ int main(int argc, char *argv[]){
       }
    }
 
-   cout << "Tasa de correctitud en caso " << argv[6] << " con " <<
-   (((double)numEjemplos)/150.0) * 100.0 << " por ciento de los datos "
-   << "y " << numInterna << " neuronas en la capa interna es de " << 
-   success/((double)numDatos) * 100.0 << " por ciento" << endl;
+   //cout << "Tasa de correctitud en caso " << argv[6] << " con " <<
+   //(((double)numEjemplos)/150.0) * 100.0 << " por ciento de los datos "
+   //<< "y " << numInterna << " neuronas en la capa interna es de " << 
+   //success/((double)numDatos) * 100.0 << " por ciento" << endl;
+
+   cout << ((double)numEjemplos)/150 << " " << success/((double)numDatos) << endl;
 
    return 0;
 }
