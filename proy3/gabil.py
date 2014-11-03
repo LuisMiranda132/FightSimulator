@@ -1,8 +1,10 @@
 from pyevolve import G1DList
 from pyevolve import GSimpleGA
 from pyevolve import G1DBinaryString
+from pyevolve import Util
 from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice, randrange as randrange
 import sys
+
 
 MAX_SET_SIZE = 5
 RULE_SIZE = 36
@@ -112,7 +114,6 @@ def init_func(genome, **args):
 def match(chromosome,sample):
    s = long(sample,2)
    for i in range(0,len(chromosome.genomeList)-1,RULE_SIZE):
-      print(''.join(chromosome.genomeList[i:i+RULE_SIZE-1]))
       if (long(''.join(chromosome.genomeList[i:i+RULE_SIZE-1]),2) & s) == s:
 	 return True
    return False
@@ -124,10 +125,59 @@ def standard_fitness(chromosome):
 	 score+=1
    return pow(score/len(TRAINING_SET),2)
 
+def gabil_cross(genome, **args):
+# def gabil_cross(genome):
+   sister = None
+   brother = None
+   gMom = args["mom"]
+   gDad = args["dad"]
+
+   # gMom = ['1','0','1','0','1','0']
+   # gDad = ['0','1','0','1','0','1','0','1','0','1','0','1']
+
+   if(len(gMom)>len(gDad)):
+      dummy = gMom
+      gMom = gDad
+      gDad = dummy
+      
+   cuts = [rand_randint(1,len(gMom)-1),rand_randint(1, len(gMom)-1)]
+
+   if cuts[0] > cuts[1]:
+      Util.listSwapElement(cuts, 0, 1)
+
+   # print cuts
+   newcuts = map(lambda x:divmod(x,RULE_SIZE)[1],cuts)
+   # print newcuts
+   # print str(gMom) +"\t<3\t"+ str(gDad)
+
+   while True:
+      dpos = rand_randint(0,(len(gDad)/RULE_SIZE)-1)
+      dummy0 = newcuts[0]+dpos*RULE_SIZE
+      dpos = rand_randint(0,(len(gDad)/RULE_SIZE)-1)
+      dummy1 = newcuts[1]+dpos*RULE_SIZE
+
+      if dummy0 < dummy1:
+         newcuts[0] = dummy0
+         newcuts[1] = dummy1
+         break
+
+   # print newcuts
+   
+   sister = gMom.clone()
+   sister.resetStats()
+   # sister = gMom[:]
+   # sister[cuts[0]:cuts[1]] = gDad[cuts[0]:cuts[1]]
+   sister.genomeList = gMom[:cuts[0]] + gDad[newcuts[0]:newcuts[1]] + gMom[cuts[1]:]
+
+   brother = gDad.clone()
+   brother.resetStats()
+   # brother = gDad[:]
+   # brother[cuts[0]:cuts[1]] = gMom[cuts[0]:cuts[1]]
+   brother.genomeList = gDad[:newcuts[0]] + gMom[cuts[0]:cuts[1]] + gDad[newcuts[1]:]
+   return (sister, brother)
 
 ###Definir el conjunto de entrenamiento###
 f = open(sys.argv[1],'r')
-
 for line in f:
    l = line.split(" ")
    t = ""
@@ -138,9 +188,11 @@ for line in f:
    t = t + attr5(l[4])
    TRAINING_SET = TRAINING_SET + [t]
 
+
 genome = G1DBinaryString.G1DBinaryString(MAX_SET_SIZE)
 genome.initializator.set(init_func)
 genome.evaluator.set(standard_fitness)
+genome.crossover.set(gabil_cross)
 ga = GSimpleGA.GSimpleGA(genome)
 ga.setGenerations(50)
 ga.setPopulationSize(INITIAL_POP)
