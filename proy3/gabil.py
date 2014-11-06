@@ -106,6 +106,7 @@ def init_func(genome, **args):
       rule = [rand_choice(('0','1')) for j in xrange(RULE_SIZE)]
       the_set = the_set + rule
    genome.genomeList = the_set
+   print genome
 
 #################################Fitness#########################################
 def match(chromosome,sample,opt=0):
