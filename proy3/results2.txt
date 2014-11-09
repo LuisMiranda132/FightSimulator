@@ -1,0 +1,18 @@
+Mutacion: 0.2, Crossover: 0.2
+0.844444444444
+Mutacion: 0.2, Crossover: 0.5
+0.888888888889
+Mutacion: 0.2, Crossover: 0.8
+1.0
+Mutacion: 0.5, Crossover: 0.2
+1.0
+Mutacion: 0.5, Crossover: 0.5
+1.0
+Mutacion: 0.5, Crossover: 0.8
+1.0
+Mutacion: 0.8, Crossover: 0.2
+1.0
+Mutacion: 0.8, Crossover: 0.5
+1.0
+Mutacion: 0.8, Crossover: 0.8
+1.0

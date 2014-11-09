@@ -106,18 +106,13 @@ def init_func(genome, **args):
       rule = [rand_choice(('0','1')) for j in xrange(RULE_SIZE)]
       the_set = the_set + rule
    genome.genomeList = the_set
-   print genome
 
 #################################Fitness#########################################
 def match(chromosome,sample,opt=0):
    s = long(sample,2)
    c = ''.join(chromosome.genomeList)
    for i in range(0,len(c),RULE_SIZE):
-      if(opt == 1):
-	 print "rule  : " + c[i:i+RULE_SIZE]
-	 print "sample: " + sample
-      if (long(c[i:i+RULE_SIZE],2) & s) == s:
-	 return True
+      if (long(c[i:i+RULE_SIZE],2) & s) == s:return True
    return False
 
 def standard_fitness(chromosome):
