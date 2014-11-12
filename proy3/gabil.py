@@ -136,24 +136,17 @@ def gabil_cross(genome, **args):
    gMom = args["mom"]
    gDad = args["dad"]
 
-   # gMom = ['1','0','1','0','1','0']
-   # gDad = ['0','1','0','1','0','1','0','1','0','1','0','1']
-
    if(len(gMom)>len(gDad)):
       dummy = gMom
       gMom = gDad
       gDad = dummy
       
-   cuts = [rand_randint(1,len(gMom)-1),rand_randint(1, len(gMom)-1)]
+   cuts = [0,0]
+   cuts[0] = rand_randint(1,len(gMom)-2)
+   cuts[1] = rand_randint(cuts[0]+1,len(gMom)-1)
 
-   if cuts[0] > cuts[1]:
-      Util.listSwapElement(cuts, 0, 1)
-
-   # print cuts
    newcuts = map(lambda x:divmod(x,RULE_SIZE)[1],cuts)
-   # print newcuts
-   # print str(gMom) +"\t<3\t"+ str(gDad)
-
+   
    while True:
       dpos = rand_randint(0,(len(gDad)/RULE_SIZE)-1)
       dummy0 = newcuts[0]+dpos*RULE_SIZE
@@ -165,18 +158,12 @@ def gabil_cross(genome, **args):
          newcuts[1] = dummy1
          break
 
-   # print newcuts
-   
    sister = gMom.clone()
    sister.resetStats()
-   # sister = gMom[:]
-   # sister[cuts[0]:cuts[1]] = gDad[cuts[0]:cuts[1]]
    sister.genomeList = gMom[:cuts[0]] + gDad[newcuts[0]:newcuts[1]] + gMom[cuts[1]:]
 
    brother = gDad.clone()
    brother.resetStats()
-   # brother = gDad[:]
-   # brother[cuts[0]:cuts[1]] = gMom[cuts[0]:cuts[1]]
    brother.genomeList = gDad[:newcuts[0]] + gMom[cuts[0]:cuts[1]] + gDad[newcuts[1]:]
    return (sister, brother)
 
@@ -262,12 +249,7 @@ for sample in SAMPLE_SET:
    if(match(ga.bestIndividual(),sample)):
       score+=1
 
-#response = "Porcentaje de casos correctamente clasificados"
-#response += " (del 30% de los datos de la base): " 
-#response += str((float(score)/len(SAMPLE_SET)) * 100) + " por ciento"
-#print response
-
-#print ' '.join(ga.bestIndividual().genomeList)
+print ''.join(ga.bestIndividual().genomeList)
 print float(score)/len(SAMPLE_SET)
 
 f.close()
