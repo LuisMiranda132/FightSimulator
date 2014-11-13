@@ -1,0 +1,93 @@
+
+Fitness: 1, Selector: 1, Corrida 1
+1.0
+Fitness: 1, Selector: 1, Corrida 2
+1.0
+Fitness: 1, Selector: 1, Corrida 3
+0.933333333333
+Fitness: 1, Selector: 1, Corrida 4
+1.0
+Fitness: 1, Selector: 1, Corrida 5
+1.0
+Fitness: 1, Selector: 1, Corrida 6
+1.0
+Fitness: 1, Selector: 1, Corrida 7
+1.0
+Fitness: 1, Selector: 1, Corrida 8
+1.0
+Fitness: 1, Selector: 1, Corrida 9
+1.0
+Fitness: 1, Selector: 1, Corrida 10
+1.0
+
+[1,1] -> 9.93
+
+
+Fitness: 1, Selector: 2, Corrida 1
+0.777777777778
+Fitness: 1, Selector: 2, Corrida 2
+1.0
+Fitness: 1, Selector: 2, Corrida 3
+1.0
+Fitness: 1, Selector: 2, Corrida 4
+1.0
+Fitness: 1, Selector: 2, Corrida 5
+0.844444444444
+Fitness: 1, Selector: 2, Corrida 6
+1.0
+Fitness: 1, Selector: 2, Corrida 7
+1.0
+Fitness: 1, Selector: 2, Corrida 8
+1.0
+Fitness: 1, Selector: 2, Corrida 9
+1.0
+Fitness: 1, Selector: 2, Corrida 10
+0.8
+
+[1,2] -> 9.4221
+
+Fitness: 2, Selector: 1, Corrida 1
+1.0
+Fitness: 2, Selector: 1, Corrida 2
+0.777777777778
+Fitness: 2, Selector: 1, Corrida 3
+1.0
+Fitness: 2, Selector: 1, Corrida 4
+0.888888888889
+Fitness: 2, Selector: 1, Corrida 5
+1.0
+Fitness: 2, Selector: 1, Corrida 6
+1.0
+Fitness: 2, Selector: 1, Corrida 7
+0.866666666667
+Fitness: 2, Selector: 1, Corrida 8
+1.0
+Fitness: 2, Selector: 1, Corrida 9
+1.0
+Fitness: 2, Selector: 1, Corrida 10
+1.0
+
+[2.1] -> 9.5331
+
+Fitness: 2, Selector: 2, Corrida 1
+0.822222222222
+Fitness: 2, Selector: 2, Corrida 2
+1.0
+Fitness: 2, Selector: 2, Corrida 3
+1.0
+Fitness: 2, Selector: 2, Corrida 4
+0.688888888889
+Fitness: 2, Selector: 2, Corrida 5
+1.0
+Fitness: 2, Selector: 2, Corrida 6
+1.0
+Fitness: 2, Selector: 2, Corrida 7
+0.955555555556
+Fitness: 2, Selector: 2, Corrida 8
+0.866666666667
+Fitness: 2, Selector: 2, Corrida 9
+1.0
+Fitness: 2, Selector: 2, Corrida 10
+1.0
+
+[2,2] -> 9.331

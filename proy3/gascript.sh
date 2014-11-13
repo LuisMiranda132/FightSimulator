@@ -6,7 +6,7 @@ do
    do
       echo "Running"
       echo "Mutacion: $k, Crossover: $l" >> results2.txt
-      python gabil.py iris70.data iris30.data 2 2 $k $l >> results2.txt
+      python gabil.py iris70.data iris30.data 1 1 $k $l >> results2.txt
       echo "Done"
    done
 done
