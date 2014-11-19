@@ -9,11 +9,11 @@ void Fighter::init_random()
     uniform_real_distribution<float>
         u(1,3),
         h(MIN_HP,MAX_HP),
-        sp(MIN_HP,MAX_HP),
-        d(MIN_HP,MAX_HP),
-        st(MIN_HP,MAX_HP),
-        sk(MIN_HP,MAX_HP),
-        l(MIN_HP,MAX_HP);
+        sp(MIN_SPEED,MAX_SPEED),
+        d(MIN_DEFENSE,MAX_DEFENSE),
+        st(MIN_STRENGTH,MAX_STRENGTH),
+        sk(MIN_SKILL,MAX_SKILL),
+        l(MIN_SKILL,MAX_SKILL);
     
     int un = u(gen);
     if(un == 1){
