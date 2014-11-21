@@ -45,6 +45,8 @@ public:
         unit(u),maxhp(h),hp(h),speed(sp),defense(d),strength(st),skill(sk),luck(l),hit_rate(ht){};
 
     void init_random();
+    void init_random(char mander);
+
     void level_up(int roll);
     void init_stats(const int* s);
     int critical_rate();

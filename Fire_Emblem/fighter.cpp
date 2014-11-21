@@ -28,6 +28,32 @@ void Fighter::init_random()
     this->hit_rate = HIT_RATE[un];
 };
 
+void Fighter::init_random(char mander)
+{
+    random_device rd;
+    default_random_engine gen(rd());
+    uniform_int_distribution<int> l(1,20),d(0,100);
+
+    this->unit = mander;
+    
+    if(mander=='s'){
+	init_stats(BASE_SWORD_STATS);
+        this->hit_rate = HIT_RATE[0];
+    }else if(mander=='a'){
+	init_stats(BASE_AXE_STATS);
+        this->hit_rate = HIT_RATE[1];
+    }else{
+	init_stats(BASE_LANCE_STATS);
+        this->hit_rate = HIT_RATE[2];
+    }
+
+    int level = l(gen);
+    for(int i=0;i<level;++i){
+      level_up(d(gen));
+    }
+    this->hp = this->maxhp;
+};
+
 void Fighter::level_up(int roll){
     int cls = (this->unit == 's' ? 0 : (this->unit == 'a' ? 1 : 2));
     this->maxhp += (roll < HP_RATE[cls] ? 1 : 0);
