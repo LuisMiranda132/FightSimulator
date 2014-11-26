@@ -65,15 +65,7 @@ double* RedNeural::aprender(double** inputs, double** targets, double tasa, int 
       ++it;
 
       t_edespues = t_e;
-
-      
-      if(print == 0){
-         print=5;
-         cout <<it<<" "<< t_e << " " <<endl;
-      }else{
-         print--;
-      }
-
+      cout <<it<<" "<< t_e << " " <<endl;
    }
    return outputs;
 }
