@@ -20,62 +20,45 @@ int main(int argc, char *argv[]){
     // cat <datos para entrenar> <datos para probar> | ./circulo.out <# de datos para entrenar> <# de neuronas>
     
     int n = atoi(argv[2]);
-    RedNeural red(2,n,1);
+    RedNeural red(12,n,1);
 
     n = atoi(argv[1]);
     
-    double x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14;
+    double x1,x2,x3,x4,x5,x6,x7,x8,x9,x10;
     int result;
     double** input;
     double** target;
-    double welp;
     char p,e;
     
 
     
-    input = Utilities::crearMatriz(n,2);
+    input = Utilities::crearMatriz(n,12);
     target = Utilities::crearMatriz(n,1);
         
     for(int i=0;i<n;i++){
-
-        cout << scanf("%c %lf %lf %lf %lf %lf %lf %c %lf %lf %lf %lf %i",
-                      &p,&x2,&x3,&x4,&x5,&x6,&x7,&e,&x9,&x10,&x11,&x12,&result)<<endl;
-        cout<<p<<":"<<d[p]<<" "<<x2<<" "<<x3<<" "<<x4<<" "<<x5<<" "<<x6<<" "<<x7<<" "<<e<<":"<<d[e]<<" "<<x9<<" "<<x10<<" "<<x11<<" "<<x12<<" => "<<result<<endl;
-        
-        
-//        if(scanf("%lf %lf %i %lf", &x, &y, &result, &welp)!=4){
-        if(scanf("%c %lf %lf %lf %lf %lf %lf %c %lf %lf %lf %lf %lf %lf %i",
-                 &p,&x2,&x3,&x4,&x5,&x6,&x7,&e,&x9,&x10,&x11,&x12,&x13,&x14,&result)!=15){
-            cout<<"nope"<<endl;
-        }else{
-            
-            cout<<p<<":"<<d[p]<<" "<<x2<<" "<<x3<<" "<<x4<<" "<<x5<<" "<<x6<<" "<<x7<<" "<<e<<":"<<d[e]<<" "<<x9<<" "<<x10<<" "<<x11<<" "<<x12<<" "<<x13<<" "<<x14<<" => "<<result<<endl;
+	    cin>>p>>x1>>x2>>x3>>x4>>x5>>e>>x6>>x7>>x8>>x9>>x10>>result;
 
             input[i][0] = d[p];
-            input[i][1] = x2;
-            input[i][2] = x3;
-            input[i][3] = x4;
-            input[i][4] = x5;
-            input[i][5] = x6;
-            input[i][6] = x7;
-            input[i][7] = d[e];
-            input[i][8] = x9;
-            input[i][9] = x10;
-            input[i][10] = x11;
-            input[i][11] = x12;
-            input[i][12] = x13;
-            input[i][12] = x14;            
-
-            cout<<"\t";
-            for(int j=0;j<14;j++)
-                cout<<input[i][j]<<" ";
-            cout<<endl;
+            input[i][1] = x1;
+            input[i][2] = x2;
+            input[i][3] = x3;
+            input[i][4] = x4;
+            input[i][5] = x5;
+            input[i][6] = d[e];
+            input[i][7] = x6;
+            input[i][8] = x7;
+            input[i][9] = x8;
+            input[i][10] = x9;
+	    input[i][11] = x10;
             
             target[i][0] = result;
 
-        }
-
     }
+
+    double tasa;
+    sscanf(argv[3],"%lf",&tasa);
+    red.aprender(input,target,tasa,n);
+    red.devolverPesos();
     
 //     double tasa;
 //     sscanf(argv[3],"%lf",&tasa);

@@ -31,6 +31,7 @@ class RedNeural{
       double aprenderSingle(double*,double*,double);
       double* resolver(double*);
       double* aprender(double**,double**,double,int);
+      void devolverPesos();
 
       static double sigmoidal(double x);
 };

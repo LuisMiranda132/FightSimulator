@@ -50,9 +50,6 @@ double* RedNeural::aprender(double** inputs, double** targets, double tasa, int 
    float t_eantes = 10;
    float t_edespues = t_eantes-1;
       
-
-   // para el caso del circulo usar 10000000 it
-   // para el caso del iris usar 200000 it
    while(abs(t_e) > 0.1 and it < 200000){
 //   while(abs(t_e) > 0.1&&it<10000000){
        
@@ -141,6 +138,25 @@ double* RedNeural::resolver(double* in){
    }
 
    return outputs;
+}
+
+void RedNeural::devolverPesos(){
+   for(int i=0;i<hidden;++i) cout << biasIH[i] << " ";
+   cout << endl;
+   for(int i=0;i<input;++i){
+      for(int j=0;j<hidden;++j){
+	 cout << pesosIH[i][j] << " ";
+      }
+      cout << endl;
+   }
+   for(int i=0;i<output;++i) cout << biasHO[i] << " ";
+   cout << endl;
+   for(int i=0;i<hidden;++i){
+      for(int j=0;j<output;++j){
+	 cout << pesosHO[i][j] << " ";
+      }
+      cout << endl;
+   }
 }
 
 double RedNeural::sigmoidal(double x){
