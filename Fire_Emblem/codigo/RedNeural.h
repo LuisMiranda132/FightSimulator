@@ -28,10 +28,13 @@ class RedNeural{
 
       //Metodos
       RedNeural(int,int,int);
+      RedNeural();
+      void inicializar(int,int,int);
       double aprenderSingle(double*,double*,double);
       double* resolver(double*);
       double* aprender(double**,double**,double,int);
       void devolverPesos();
+      void leerPesos();
 
       static double sigmoidal(double x);
 };

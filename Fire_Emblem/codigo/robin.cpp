@@ -1,13 +1,25 @@
 #include "RedNeural.h"
 #include <fstream>
 #include <map>
+#include <csignal>
+
 using namespace std;
 
 typedef map<char,int> Dict;
 //typedef Dict::const_iterator It;
+RedNeural red;
+
+void signalHandler( int signum )
+{
+    red.devolverPesos();
+    cout << "Interrupt signal (" << signum << ") received.\n";
+    exit(signum);      
+}
 
 int main(int argc, char *argv[]){
 
+    signal(SIGINT, signalHandler);  
+    
     Dict d;
 
     d['s']=1;
@@ -20,7 +32,7 @@ int main(int argc, char *argv[]){
     // cat <datos para entrenar> <datos para probar> | ./circulo.out <# de datos para entrenar> <# de neuronas>
     
     int n = atoi(argv[2]);
-    RedNeural red(12,n,1);
+    red.inicializar(12,n,3);
 
     n = atoi(argv[1]);
     
@@ -30,10 +42,8 @@ int main(int argc, char *argv[]){
     double** target;
     char p,e;
     
-
-    
     input = Utilities::crearMatriz(n,12);
-    target = Utilities::crearMatriz(n,1);
+    target = Utilities::crearMatriz(n,3);
         
     for(int i=0;i<n;i++){
 	    cin>>p>>x1>>x2>>x3>>x4>>x5>>e>>x6>>x7>>x8>>x9>>x10>>result;
@@ -51,7 +61,9 @@ int main(int argc, char *argv[]){
             input[i][10] = x9;
 	    input[i][11] = x10;
             
-            target[i][0] = result;
+            target[i][0] = (result == 0 ? 1 : 0);
+            target[i][1] = (result == 1 ? 1 : 0);
+            target[i][2] = (result == 2 ? 1 : 0);
 
     }
 

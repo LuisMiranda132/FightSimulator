@@ -1,7 +1,51 @@
 #include "RedNeural.h"
-using namespace std;
+using  namespace std;
+
+RedNeural::RedNeural(){
+}
 
 RedNeural::RedNeural(int i, int h, int o){
+   random_device rd;
+   default_random_engine gen(rd());
+   uniform_real_distribution<double> distribution(-0.5,0.5);
+
+   input = i;
+   hidden = h;
+   output = o;
+
+   inputs = new double[input];
+   pesosIH = Utilities::crearMatriz(input,hidden);
+   sumasIH = new double[hidden];
+   biasIH = new double[hidden];
+   outputsIH = new double[hidden];
+
+   pesosHO = Utilities::crearMatriz(hidden,output);
+   sumasHO = new double[output];
+   biasHO = new double[output];
+   outputs = new double[output];
+
+   trebleOutput = new double[output];
+   trebleHidden = new double[hidden];
+
+   for(int i=0;i<input;++i){
+      for(int j=0;j<hidden;++j){
+	 pesosIH[i][j] = distribution(gen);
+      }
+   }
+
+   for(int i=0;i<hidden;++i){
+      for(int j=0;j<output;++j){
+	 pesosHO[i][j] = distribution(gen);
+      }
+      biasIH[i] = distribution(gen);
+   }
+
+   for(int i=0;i<output;++i){
+      biasHO[i] = distribution(gen);
+   }
+}
+
+void RedNeural::inicializar(int i, int h, int o){
    random_device rd;
    default_random_engine gen(rd());
    uniform_real_distribution<double> distribution(-0.5,0.5);
@@ -141,22 +185,48 @@ double* RedNeural::resolver(double* in){
 }
 
 void RedNeural::devolverPesos(){
-   for(int i=0;i<hidden;++i) cout << biasIH[i] << " ";
-   cout << endl;
+    ofstream salida;
+    salida.open("pesos");
+    
+   for(int i=0;i<hidden;++i) salida << biasIH[i] << " ";
+   salida << endl;
    for(int i=0;i<input;++i){
       for(int j=0;j<hidden;++j){
-	 cout << pesosIH[i][j] << " ";
+	 salida << pesosIH[i][j] << " ";
       }
-      cout << endl;
+      salida << endl;
    }
-   for(int i=0;i<output;++i) cout << biasHO[i] << " ";
-   cout << endl;
+   for(int i=0;i<output;++i) salida << biasHO[i] << " ";
+   salida << endl;
    for(int i=0;i<hidden;++i){
       for(int j=0;j<output;++j){
-	 cout << pesosHO[i][j] << " ";
+	 salida << pesosHO[i][j] << " ";
       }
-      cout << endl;
+      salida << endl;
    }
+
+   salida.close();
+}
+
+void RedNeural::leerPesos(){
+   ifstream entrada;
+   entrada.open("pesos");
+
+   for(int i=0;i<hidden;++i) entrada >> biasIH[i];
+   for(int i=0;i<input;++i){
+      for(int j=0;j<hidden;++j){
+         entrada >> pesosIH[i][j];
+      }
+   }
+
+   for(int i=0;i<output;++i) entrada >> biasHO[i];
+   for(int i=0;i<hidden;++i){
+      for(int j=0;j<output;++j){
+         entrada >> pesosHO[i][j];
+      }
+   }
+
+   entrada.close();
 }
 
 double RedNeural::sigmoidal(double x){
