@@ -38,32 +38,18 @@ int main(int argc, char *argv[]){
     d['a']=2;
     d['l']=3;
 
+    int correct = 0;
+    int combat = 1;
+    int total = numP * numF * 3;
         
     for(int k=0;k<numP;k++){
         player.init_random('s');
-//        cout<<player<<endl;
         for(int j=0;j<3;j++){
-            type = TYPES[j];
-//            cout<<type<<":"<<endl;        
+            type = TYPES[j];     
             for(int i=0;i<numF;i++){
-//                cout<<" "<<i<<": ";
                 input = Utilities::crearMatriz(1,12);
                 opponent.init_random(type);
-                    
-                // cout <<player.unit <<" "<<player.speed << " " <<  player.defense;
-                // cout << " " <<  player.strength << " " << player.skill << " ";
-                // cout << player.luck << " ";
-                
-                // cout << opponent.unit << " " << opponent.speed;
-                // cout<<" "<<opponent.defense << " " <<  opponent.strength  << " ";
-                // cout<< opponent.skill << " " << opponent.luck << " ";
-                
-                // cout<<"\nPlayer: "<<endl;
-                // cout<<player<<endl;
-                // cout<<"\nEnemy: "<<endl;
-                // cout<<opponent<<endl;
-                
-                // cout<<"<><><><><><><><><><><><><><><><><><><><>";
+
                 player.combat(&opponent);
                 opponent.combat(&player);
                 
@@ -82,32 +68,35 @@ int main(int argc, char *argv[]){
             
                 double* temp = red.resolver(input[0]);
                     
-                // cout<<"\nPlayer: "<<endl;
-                // cout<<player<<endl;
-                // cout<<"\nEnemy: "<<endl;
-                // cout<<opponent<<endl;
-                    
                 float playerPerc = (float)player.hp/(float)player.maxhp;
                 float opponentPerc = (float)opponent.hp/(float)opponent.maxhp;
-                //cout << playerPerc << " " << opponentPerc << endl;
-                cout<<"Final result: ";
+               
                 int c = (playerPerc < opponentPerc ? 0 : 
-                         (playerPerc == opponentPerc ? 1 : 2));
-                
-                cout << c;
+                         (playerPerc == opponentPerc ? 1 : 2)); 
 
-                double res = (temp[0]>temp[1]&&temp[0]>temp[2] ? temp[0] :
-                              (temp[1]>temp[0]&&temp[1]>temp[2] ? temp[1]
-                               : temp[2]));
-                c = (temp[0]>temp[1]&&temp[0]>temp[2] ? 0 :
-                     (temp[1]>temp[0]&&temp[1]>temp[2] ? 1
-                      : 2));
-                
-                cout <<" vs "<<c<<" : "<<res<<" <= "<<temp[0]<<" , "<<temp[1]<<" , "<<temp[2]<<endl;
+                int d = (temp[0]>temp[1] ? (temp[0]>temp[2] ? 0 : 2) 
+		: (temp[1]>temp[2] ? 1 : 2));
 
+		string real,reported;
+		real = (c == 0 ? "Gana enemigo" : (c == 1 ? "Empate" : "Gana aliado"));
+		reported = (d == 0 ? "Gana enemigo" : (d == 1 ? "Empate" : "Gana aliado"));
+
+
+                cout << "Combate n.- " << combat << endl;
+		cout << "\tResultado real: " << real << endl;
+		cout << "\tResultado reportado: " << reported << endl;
+
+	        if(c == d){
+		  ++correct;
+		  cout << "\tPredicción Correcta!" << endl;
+	        }else cout << "\tPredicción Incorrecta" << endl;
+		++combat;
 
             }
         }
     }
+
+    cout << "Porcentaje de correctitud: " << (double)correct/(double)total*100;
+    cout << " por ciento" << endl;
 }
         
