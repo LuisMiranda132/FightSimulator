@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
     int numF = atoi(argv[2]);
     int numP = atoi(argv[1]);
     char type;
-    RedNeural red(12,atoi(argv[1]),3);
+    RedNeural red(12,10,3);
     double** input;
 
     red.leerPesos();
