@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
     // cat <datos para entrenar> <datos para probar> | ./circulo.out <# de datos para entrenar> <# de neuronas>
     
     int n = atoi(argv[2]);
-    RedNeural red(12,n,1);
+    RedNeural red(12,n,3);
 
     n = atoi(argv[1]);
     
