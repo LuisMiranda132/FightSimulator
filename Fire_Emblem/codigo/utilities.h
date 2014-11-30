@@ -4,6 +4,8 @@
 #include<algorithm>
 #include<math.h>
 #include<random>
+#include <fstream>
+
 
 class Utilities{
    public:

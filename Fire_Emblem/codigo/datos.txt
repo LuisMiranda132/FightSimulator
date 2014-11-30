@@ -1,0 +1,51 @@
+*Stats
+   +HP: Hit Points. Cuando llegan a 0 se muere la unidad
+   +Speed: Afecta la cantidad de hits y la evasion
+   +Defense: Disminuye el daño de los ataques recibidos
+   +Strength: Aumenta la fuerza de los ataques
+   +Skill: Aumenta el hit rate y el critical rate
+   +Luck: Afecta la probabilidad de dar o recibir ataques
+
+*Formulas(Not taking the stats of equipped weapon into account)
+   +Repeated Attack: True if 3+, False Otherwise
+   +Hit Rate = Skill
+   +Evade = Speed
+   +Accuracy = Hit Rate (Attacker) - Evade(Defender). Valor entre 0 y 100
+   +Attack Power = Strength
+   +Defense Power = Defense
+   +Damage = Attack Power (Attacker) - Defense Power(Defender). Valor mayor o
+   igual a 0
+   +Critical Damage = Damage X 3
+   +Critical Rate = (Skill + Luck)/2
+   +Critical Evade = Luck
+   +Critical Chance = Critical Rate (Attacker) - Critical Evade (Defender)
+
+*Unit Types
+   +Swordsman: +20 hit rate vs axemen, -20 hit rate vs lancemen
+   +Axeman: +20 hit rate vs lancemen, -20 hit rate vs swordsmen 
+   +Lanceman: +20 hit rate vs swordsmen, -20 hit rate vs axemen
+
+*Parameters given to agent
+   +Ally Unit stats (Including weapon type used)
+   +Enemy Unit stats(Including weapon type used)
+
+*Output
+   +Number between -1 and 1 indicating success rate
+
+*Test/Training case generation
+   +Generate two random units
+      -Generate weapon and possible stat values for that weapon type
+      -Generate stats
+   +Ally Unit always attacks first.
+   +Play out the battle's first turn (Ally attack + Enemy attack)
+   +Success Rate will be the difference in HP percentage by the end of battle.
+   Example: If ally unit defeated the enemy, then success rate is 1 (100% - 0%).
+   If ally unit was left with 40% HP and Enemy unit with 80% HP, then success
+   rate = 0.4 - 0.8 = -0.6
+   +Generate many random test cases, trying to ensure uniform distribution for
+   weapon types of both ally and enemy
+
+*Training/Testing
+   +Use an AI algorithm to train agent
+   +Test learned AI with new generated cases
+   +Report results
